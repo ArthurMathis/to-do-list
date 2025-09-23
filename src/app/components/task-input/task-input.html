@@ -1,0 +1,55 @@
+<section 
+    class="overlay" 
+    role="dialog" 
+    aria-modal="true" 
+    aria-labelledby="modal-title" 
+    aria-describedby="modal-desc"
+>
+    <article 
+        class="dialog" 
+        role="document"
+    >
+        <header>
+            <h3 
+                id="modal-title" 
+                class="modal-title"
+            >
+                Nouvelle tâche
+            </h3>
+
+            <p 
+                id="modal-desc" 
+                class="modal-desc"
+            >
+                Saisis le nom de la tâche. Tu pourras la modifier plus tard si besoin.
+            </p>
+        </header>
+
+        <content>
+            <input 
+                type="text"  
+                placeholder="Titre de la tâche" 
+                aria-label="Titre de la tâche" 
+                (input)="handleInput($event.target.value)"
+            />
+        </content>
+
+        <footer>
+            <button 
+                type="button" 
+                class="btn btn-cancel"
+                (click)="handleCancel()"
+            >
+                Annuler
+            </button>
+
+            <button 
+                type="button" 
+                class="btn btn-confirm"
+                (click)="handleSubmit()"
+            >
+                Valider
+            </button>
+        </footer>
+    </article>
+</section>

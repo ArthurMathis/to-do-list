@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+  --color-primary: #9c27b0;        /* Violet profond */
+  --color-primary-dark: #7b1fa2;   /* Violet foncé */
+  --color-accent: #e91e63;         /* Rose */
+  --color-accent-light: #f8bbd0;   /* Rose clair */
+  --color-on-primary: #ffffff;
+  --color-background: #fdf7fb;
+  --color-surface: #ffffff;
+  --color-text: #2d2d2d;
+  --shadow-soft: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: var(--color-background);
+  color: var(--color-text);
+}

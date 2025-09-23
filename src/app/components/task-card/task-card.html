@@ -1,0 +1,36 @@
+<div class="task">
+    <div class="task-left">
+        <input 
+            type="checkbox" 
+            class="task-checkbox" 
+            [checked]="task().getChecked()"
+            (change)="handleCheck()"
+        />
+
+        <span 
+            class="task-title"
+            [class.tast-checked]="task().getChecked() == true"
+        >
+            {{ task().getTitled() }}
+        </span>
+    </div>
+
+    <div class="task-actions">
+        <button 
+            class="btn-icon edit-btn" 
+            title="Modifier"
+            (click)="handleUpdate()"
+            [disabled]="task().getChecked() == true"
+        >
+            ✏️
+        </button>
+
+        <button 
+            class="btn-icon delete-btn" 
+            title="Supprimer"
+            (click)="handleDelete()"
+        >
+            🗑️
+        </button>
+    </div>
+</div>
