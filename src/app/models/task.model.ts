@@ -3,6 +3,7 @@ import TaskInterface from "../utils/task.interface";
 /**
  * @class Task
  * @classdesc The Task Model
+ * 
  * @author Arthur MATHIS <arthur.mathis@diaconat-mulhouse.fr>
  */
 export default class Task {
@@ -40,6 +41,11 @@ export default class Task {
     public getTitled(): string { return this.titled; }
     public getChecked(): boolean { return this.checked; }
 
+    /**
+     * @function fromInterface
+     * @param {TaskInterface} task The interface that contains the task data
+     * @returns {Task} The new task builded from the interface 
+     */
     public static fromInterface(task: TaskInterface): Task {
         return new Task(
             task.id,
@@ -48,6 +54,11 @@ export default class Task {
         );
     }
 
+    /**
+     * @function copy 
+     * @description Public method that copy the task
+     * @returns {Task} 
+     */
     public copy(): Task {
         return new Task(
             this.getId(),

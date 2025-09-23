@@ -2,7 +2,9 @@ import { effect, Injectable } from '@angular/core';
 import Task from '../models/task.model';
 
 /**
- * @class The Service Task
+ * @class TaskService
+ * @classdesc The Service Task
+ * 
  * @author Arthur MATHIS <arthur.mathis@diaconat-mulhouse.fr>
  */
 @Injectable({

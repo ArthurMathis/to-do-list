@@ -31,7 +31,7 @@ export class App {
    */
   protected taskList: Array<Task>;
   /**
-   * 
+   * @var {Task|undefined} currenTaskUpdate The task that is being updated
    */
   protected currenTaskUpdate: Task|undefined;
 
