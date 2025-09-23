@@ -9,7 +9,7 @@
 
 @if(showTaskUpdate() === true) {
     <app-task-update 
-        [task]="taskList[0]"
+        [task]="currenTaskUpdate!"
         (updatedTask)="updateContentTask($event)"
         (cancel)="updateShowTaskUpdate(false)"
     />
