@@ -6,7 +6,6 @@ import { TaskService } from './services/task.service';
 import Task from './models/task.model';
 import { TaskUpdate } from './components/task-update/task-update';
 
-
 @Component({
   selector: 'app-root',
   imports: [

@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:17.5-bookworm
+    container_name: to-do-db
+    environment: 
+      POSTGRES_DB: to-do-db
+      POSTGRES_USER: to-do-login
+      POSTGRES_PASSWORD: to-do-password
+    ports:
+      - "5432:5432"
+    volumes:
+      - to_do_data:/var/lib/postgresql/data
+
+volumes:
+  to_do_data:
