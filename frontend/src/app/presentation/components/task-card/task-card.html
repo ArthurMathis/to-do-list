@@ -1,0 +1,63 @@
+<div 
+    class="flex justify-between align-center w-full mb-3 px-4 py-3 border-b-1 border-accent/35 hover:border-accent/70"
+>
+    <div class="flex place-content-start place-items-center gap-4">
+        <input 
+            class="
+                appearance-none 
+                w-5 h-5 
+                border-2 border-accent rounded-full 
+                checked:bg-accent 
+                checked:border-accent
+                checked:before:block 
+                checked:before:leading-5
+                cursor-pointer
+            " 
+            type="checkbox" 
+            [checked]="task().getChecked()"
+            (change)="handleCheck()"
+        />
+
+        <span 
+            class="task-title"
+            [ngClass]="{
+                'line-through opacity-65': task().getChecked()
+            }"
+        >
+            {{ task().getTitled() }}
+        </span>
+    </div>
+
+    <div class="flex place-content-end place-items-center gap-2">
+        <button 
+            class="
+                w-10 h-10 p-2 
+                rounded-full cursor-pointer
+                tansition-linear duration-100
+                hover:bg-accent-light/50
+                focus:bg-accent-light/50
+                disabled:cursor-not-allowed disabled:grayscale 
+            "
+            title="Modifier"
+            (click)="handleUpdate()"
+            [disabled]="task().getChecked() == true"
+        >
+            ✏️
+        </button>
+
+        <button 
+            class="
+                w-10 h-10 p-2 
+                rounded-full cursor-pointer
+                tansition-linear duration-100
+                hover:bg-accent-light/50
+                focus:bg-accent-light/50
+                disabled:cursor-not-allowed disabled:grayscale 
+            "
+            title="Supprimer"
+            (click)="handleDelete()"
+        >
+            🗑️
+        </button>
+    </div>
+</div>

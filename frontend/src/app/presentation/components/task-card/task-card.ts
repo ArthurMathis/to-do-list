@@ -1,9 +1,12 @@
-import { Component, input, output, OutputEmitterRef } from '@angular/core';
-import Task from '../../models/task.model';
+import { Component, input, output } from '@angular/core';
+import { NgClass } from '@angular/common';
+import Task from '../../../domain/models/task.model';
 
 @Component({
   selector: 'app-task-card',
-  imports: [],
+  imports: [
+    NgClass
+  ],
   templateUrl: './task-card.html',
   styleUrl: './task-card.css'
 })
@@ -17,16 +20,17 @@ export class TaskCard {
   /**
    * @var {OutputEmitterRef<number>} taskCheck The output signal to check the task 
    */
-  protected taskCheck: OutputEmitterRef<number>  = output<number>();
+  protected taskCheck  = output<number>();
   /**
    * @var {OutputEmitterRef<number>} taskUpdate The output signal to update the task 
    */
-  protected taskUpdate: OutputEmitterRef<number> = output<number>();
+  protected taskUpdate = output<number>();
   /**
    * @var {OutputEmitterRef<number>} taskDelete The output signal to delete the task 
    */
-  protected taskDelete: OutputEmitterRef<number> = output<number>();
+  protected taskDelete = output<number>();
 
+  //// SIGNAL //// 
   /**
    * @function handleCheck
    * @description Protected method that handle the check signal 

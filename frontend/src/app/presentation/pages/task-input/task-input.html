@@ -1,0 +1,67 @@
+<div 
+    class="flex flex-col items-center py-16" 
+    style="height: calc(100dvh - 88px)"
+    (submit)="handleSubmit($event)"
+>
+    <form 
+        class="
+            flex flex-col gap-4
+            w-240 h-fit p-6
+            rounded-3xl bg-black/2 shadow-xl
+        "
+        [formGroup]="formGroup" 
+    >
+        <header class="flex justify-center">
+            <h3 class="font-semibold">
+                Nouvelle tâche
+            </h3>
+        </header>
+
+        <content class="flex flex-col gap-1 w-full h-fit">
+            <div class="flex flex-col gap-1 w-full h-fit">
+                <label for="titled">
+                    Saisissez votre tâche *
+                </label>
+
+                <input 
+                    class="
+                        px-2 py-1 
+                        border-1 rounded-lg bg-white
+                        placeholder:text-black/35
+                    "
+                    [ngClass]="{
+                        'border-black hover:outline-1 focus:outline-1': formGroup.get('titled')?.valid || !formGroup.get('titled')?.dirty,
+                        'border-red-500 outline-red-500 focus:outline-red-500': formGroup.get('titled')?.invalid && formGroup.get('titled')?.dirty
+                    }"
+                    type="text" 
+                    name="titled" 
+                    placeholder="Faire quelque chose..." 
+                    formControlName="titled"
+                />
+                
+                @if (formGroup.get('titled')?.invalid && formGroup.get('titled')?.dirty) {
+                    <span class="text-xs text-red-500">
+                        Ce champ est obligatoire.
+                    </span>
+                }
+                
+            </div>
+        </content>
+
+        <footer class="flex justify-end">
+            <button 
+                class="
+                    px-3 py-2 rounded-xl 
+                    text-white font-semibold 
+                    bg-accent/85 cursor-pointer
+                    hover:bg-accent active:bg-accent/70
+                    disabled:bg-accent/35 disabled:cursor-not-allowed
+                "
+                type="submit"
+                [disabled]="formGroup.invalid"
+            >
+                Générer
+            </button>
+        </footer>
+    </form>
+</div>

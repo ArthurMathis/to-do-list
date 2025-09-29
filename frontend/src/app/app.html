@@ -1,25 +1,4 @@
-<app-navbar (createTask)="updateShowTaskInput(true)"/>
-
-@if(showTaskInput() === true) {
-    <app-task-input 
-        (submit)="createTaskCard($event)"
-        (cancel)="updateShowTaskInput(false)"
-    />
-}
-
-@if(showTaskUpdate() === true) {
-    <app-task-update 
-        [task]="currenTaskUpdate!"
-        (updatedTask)="updateContentTask($event)"
-        (cancel)="updateShowTaskUpdate(false)"
-    />
-}
-
-<main>
-    <app-tasks-list 
-        [taskList]="taskList" 
-        (taskCheck)="updateCheckTask($event)"
-        (taskUpdate)="handleUpdateTask($event)"
-        (taskDelete)="deleteTask($event)"
-    />
-</main>
+<div class="flex flex-col w-full min-h-dvh">
+    <app-navbar />
+    <router-outlet></router-outlet>
+</div>
