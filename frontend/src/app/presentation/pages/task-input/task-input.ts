@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { TaskService } from '../../../domain/services/task.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import Task from '../../../domain/models/task.model';
 
 /**
  * @class TaskInput
@@ -18,8 +19,9 @@ import { Router } from '@angular/router';
   templateUrl: './task-input.html',
   styleUrl: './task-input.css'
 })
-export class TaskInput {
-
+export class TaskInput implements OnInit {
+  
+  // * INJECTS * //
   /**
    * @var {FormBuilder} formBuilder The FormBuilder
    */
@@ -32,14 +34,46 @@ export class TaskInput {
    * @var {Router} router The Router
    */
   protected router = inject(Router);
-  
+  /**
+   * @var {ActivatedRoute} activatedRoute The current URL
+   */
+  protected activatedRoute = inject(ActivatedRoute);
+
+  // * ATTRIBUTES * // 
+  /**
+   * @var {WritableSignal<Task|undefined>} task The task to update, if we don't create a new task
+   */
+  protected task = signal<Task|undefined>(undefined);
   /**
    * @var {FormGroup} formGroup The FormGroup
    */
-  protected formGroup = this.formBuilder.group({
-    titled: [ "", Validators.required ]
-  });
+  protected formGroup: FormGroup; 
 
+  // * ONINIT * // 
+  public ngOnInit(): void {
+    const id = this.activatedRoute.snapshot.params['id'];
+    if(id) {
+      const fetchTask = this.taskService.get(parseInt(id));
+      this.task.set(fetchTask);
+
+      if (fetchTask) {
+        this.formGroup.patchValue({
+          titled: fetchTask.getTitled()
+        });
+      }
+    }
+  }
+
+  /**
+   * @constructor
+   */
+  public constructor() {
+    this.formGroup = this.formBuilder.group({
+      titled: ["", Validators.required]
+    });
+  }
+
+  // * SIGNAL MANIPULATION * //
   /**
    * @function handleSubmit 
    * @description Protected method that creates the new task
@@ -47,8 +81,19 @@ export class TaskInput {
    */
   protected handleSubmit(event: Event): void {
     event.preventDefault();
-    const response = this.formGroup.get('titled')?.value;
-    this.taskService.create(response!);
-    this.router.navigate(["/home"]);
+    const response = this.formGroup.get('titled')!.value;
+
+    if(this.task()) {
+      const updatedTask = Task.fromInterface({
+        id: this.task()!.getId(),
+        titled: response,
+        checked: this.task()!.getChecked()
+      });
+      this.taskService.update(updatedTask);
+    } else {
+      this.taskService.create(response!);
+    }
+
+    this.router.navigate([ "/home" ]);
   }
 }
