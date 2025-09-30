@@ -1,69 +1,33 @@
-import TaskInterface from "../utils/task.interface";
-
 /**
  * @class Task
  * @classdesc The Task Model
  * 
  * @author Arthur MATHIS <arthur.mathis@diaconat-mulhouse.fr>
  */
-export default class Task {
+export class Task {
 
-    /**
-     * @var {number} id The primary key of the task
-     */
-    protected id: number;
-    /**
-     * @var {string} titled The titled of the task
-     */
-    protected titled: string;
-    /**
-     * @var {boolean} checked If the task is done
-     */
-    protected checked: boolean;
+    private id: number = 0;
+    private titled: string = "";
+    private checked: boolean = false;
 
-    /**
-     * @constructor
-     * @param {number} id  The primary key of the task
-     * @param {string} titled The titled of the task
-     * @param {boolean} checked If the task is done
-     */
-    public constructor(
-        id: number, 
-        titled: string, 
-        checked: boolean
-    ) {
-        this.id      = id;
-        this.titled  = titled;
-        this.checked = checked;
+    get Id(): number {
+        return this.id;
     }
 
-    public getId(): number { return this.id; }
-    public getTitled(): string { return this.titled; }
-    public getChecked(): boolean { return this.checked; }
+    get Titled(): string {
+        return this.titled;
+    }
 
-    /**
-     * @function fromInterface
-     * @param {TaskInterface} task The interface that contains the task data
-     * @returns {Task} The new task builded from the interface 
-     */
-    public static fromInterface(task: TaskInterface): Task {
-        return new Task(
-            task.id,
-            task.titled,
-            task.checked
-        );
+    get Checked(): boolean {
+        return this.checked;
     }
 
     /**
-     * @function copy 
-     * @description Public method that copy the task
-     * @returns {Task} 
+     * @function 
+     * @description Public method that duplicates the Task
+     * @returns {Task} The duplicated Task
      */
-    public copy(): Task {
-        return new Task(
-            this.getId(),
-            this.getTitled(),
-            this.getChecked()
-        )
+    copy(): Task {
+        return Object.assign(new Task(), this);
     }
 }

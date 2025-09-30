@@ -1,9 +1,11 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, Signal, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { TaskService } from '../../../domain/services/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import Task from '../../../domain/models/task.model';
+import { Task } from '../../../domain/models/task.model';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { TaskInterface } from '../../../domain/interfaces/task.interface';
 
 /**
  * @class TaskInput
@@ -21,77 +23,42 @@ import Task from '../../../domain/models/task.model';
 })
 export class TaskInput implements OnInit {
   
-  // * INJECTS * //
-  /**
-   * @var {FormBuilder} formBuilder The FormBuilder
-   */
   protected formBuilder = inject(FormBuilder);
-  /**
-   * @var {TaskService} taskService The TaskService
-   */
   protected taskService = inject(TaskService);
-  /**
-   * @var {Router} router The Router
-   */
   protected router = inject(Router);
-  /**
-   * @var {ActivatedRoute} activatedRoute The current URL
-   */
   protected activatedRoute = inject(ActivatedRoute);
 
-  // * ATTRIBUTES * // 
-  /**
-   * @var {WritableSignal<Task|undefined>} task The task to update, if we don't create a new task
-   */
-  protected task = signal<Task|undefined>(undefined);
-  /**
-   * @var {FormGroup} formGroup The FormGroup
-   */
+  protected task: Signal<Task|undefined>|undefined = undefined;
   protected formGroup: FormGroup; 
 
-  // * ONINIT * // 
-  public ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['id'];
-    if(id) {
-      const fetchTask = this.taskService.get(parseInt(id));
-      this.task.set(fetchTask);
-
-      if (fetchTask) {
-        this.formGroup.patchValue({
-          titled: fetchTask.getTitled()
-        });
-      }
-    }
-  }
-
-  /**
-   * @constructor
-   */
-  public constructor() {
+  constructor() {
     this.formGroup = this.formBuilder.group({
-      titled: ["", Validators.required]
+      titled: [ "", Validators.required ]
     });
   }
 
-  // * SIGNAL MANIPULATION * //
-  /**
-   * @function handleSubmit 
-   * @description Protected method that creates the new task
-   * @param event The submit event of the html form
-   */
+  ngOnInit(): void {
+    const taskId = this.activatedRoute.snapshot.params['id'];
+    if(taskId) {
+      this.task = toSignal(this.taskService.get(taskId));
+    }
+  }
+
   protected handleSubmit(event: Event): void {
     event.preventDefault();
-    const response = this.formGroup.get('titled')!.value;
+    const response: string = this.formGroup.get('titled')!.value;
 
-    if(this.task()) {
-      const updatedTask = Task.fromInterface({
-        id: this.task()!.getId(),
-        titled: response,
-        checked: this.task()!.getChecked()
-      });
-      this.taskService.update(updatedTask);
+    if(this.task) {
+      const taskUpdate: TaskInterface = {
+        id: this.task()!.Id,
+        titled: this.task()!.Titled,
+        checked: this.task()!.Checked
+      };
+      this.taskService.update(taskUpdate);
     } else {
-      this.taskService.create(response!);
+      this.taskService.create({
+        titled: response
+      });
     }
 
     this.router.navigate([ "/home" ]);

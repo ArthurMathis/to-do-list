@@ -13,8 +13,8 @@
     >
         <header class="flex justify-center">
             <h3 class="font-semibold">
-            @if (task()) {
-                Mise à jour de la tâche {{ task()!.getId() }}
+            @if (task) {
+                Mise à jour de la tâche {{ task()!.Id }}
             } @else {
                 Nouvelle tâche
             }
@@ -64,7 +64,7 @@
                 type="submit"
                 [disabled]="formGroup.invalid"
             >
-                @if(task()) {
+                @if(task) {
                     Mettre à jour
                 } @else {
                     Générer

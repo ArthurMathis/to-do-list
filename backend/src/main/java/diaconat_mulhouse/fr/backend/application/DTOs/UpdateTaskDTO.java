@@ -4,11 +4,13 @@ public class UpdateTaskDTO {
 
     protected long id;
     protected String titled;
+    protected boolean checked;
 
     // * CONSTRUCTORS * //
-    public UpdateTaskDTO(long id, String titled) {
+    public UpdateTaskDTO(long id, String titled, boolean checked) {
         this.id = id;
         this.titled = titled;
+        this.checked = checked;
     }
 
     public UpdateTaskDTO() {
@@ -29,5 +31,13 @@ public class UpdateTaskDTO {
 
     public void setTitled(String titled) {
         this.titled = titled;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

@@ -32,6 +32,17 @@ public class TaskJPA {
         this.createdAt = createdAt;
     }
 
+    public TaskJPA(long id, String titled, boolean checked) {
+        this.id = id;
+        this.titled = titled;
+        this.checked = checked;
+    }
+
+    public TaskJPA(String titled, boolean checked) {
+        this.titled = titled;
+        this.checked = checked;
+    }
+
     public TaskJPA(String titled) {
         this.titled = titled;
     }

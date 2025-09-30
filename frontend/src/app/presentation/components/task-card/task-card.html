@@ -14,17 +14,17 @@
                 cursor-pointer
             " 
             type="checkbox" 
-            [checked]="task().getChecked()"
+            [checked]="task().Checked"
             (change)="handleCheck()"
         />
 
         <span 
             class="task-title"
             [ngClass]="{
-                'line-through opacity-65': task().getChecked()
+                'line-through opacity-65': task().Checked
             }"
         >
-            {{ task().getTitled() }}
+            {{ task().Titled }}
         </span>
     </div>
 
@@ -40,7 +40,7 @@
             "
             title="Modifier"
             (click)="handleUpdate()"
-            [disabled]="task().getChecked() == true"
+            [disabled]="task().Checked == true"
         >
             ✏️
         </button>

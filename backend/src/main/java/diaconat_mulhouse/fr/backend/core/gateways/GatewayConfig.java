@@ -2,6 +2,7 @@ package diaconat_mulhouse.fr.backend.core.gateways;
 
 import diaconat_mulhouse.fr.backend.core.converters.task.createTask.CreateTaskConverter;
 import diaconat_mulhouse.fr.backend.core.converters.task.taskJPA.TaskJPAConverter;
+import diaconat_mulhouse.fr.backend.core.converters.task.updateTask.UpdateTaskConverter;
 import diaconat_mulhouse.fr.backend.core.gateways.task.create.CreateTaskGateway;
 import diaconat_mulhouse.fr.backend.core.gateways.task.create.CreateTaskGatewayImpl;
 import diaconat_mulhouse.fr.backend.core.gateways.task.delete.DeleteTaskGateway;
@@ -35,8 +36,8 @@ public class GatewayConfig {
     }
 
     @Bean
-    public UpdateTaskGateway updateTaskGateway(TaskRepository taskRepository,  TaskJPAConverter taskJPAConverter) {
-        return new UpdateTaskGatewayImpl(taskRepository, taskJPAConverter);
+    public UpdateTaskGateway updateTaskGateway(TaskRepository taskRepository,  UpdateTaskConverter updateTaskConverter) {
+        return new UpdateTaskGatewayImpl(taskRepository, updateTaskConverter);
     }
 
     @Bean

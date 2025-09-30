@@ -1,14 +1,14 @@
 package diaconat_mulhouse.fr.backend.application.services;
 
-import diaconat_mulhouse.fr.backend.application.DTOs.CreateTaskDTO;
-import diaconat_mulhouse.fr.backend.application.DTOs.TaskJsonDTO;
-import diaconat_mulhouse.fr.backend.application.DTOs.UpdateTaskDTO;
+import diaconat_mulhouse.fr.backend.application.DTOs.*;
 import diaconat_mulhouse.fr.backend.application.usecases.task.create.CreateTaskUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.task.delete.DeleteTaskUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.task.get.GetTaskUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.task.list.ListTaskUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.task.update.UpdateTaskUseCase;
+import diaconat_mulhouse.fr.backend.core.converters.task.createTask.JsonCreateTaskConverter;
 import diaconat_mulhouse.fr.backend.core.converters.task.taskJson.TaskJsonConverter;
+import diaconat_mulhouse.fr.backend.core.converters.task.updateTask.JsonUpdateTaskConverter;
 import diaconat_mulhouse.fr.backend.domain.entities.Task;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +23,9 @@ import java.util.List;
 public class TaskService {
 
     protected TaskJsonConverter taskJsonConverter;
+    protected JsonCreateTaskConverter jsonCreateTaskConverter;
+    protected JsonUpdateTaskConverter jsonUpdateTaskConverter;
+
     protected ListTaskUseCase listTaskUseCase;
     protected GetTaskUseCase getTaskUseCase;
     protected CreateTaskUseCase createTaskUseCase;
@@ -34,14 +37,18 @@ public class TaskService {
             TaskJsonConverter taskJsonConverter,
             GetTaskUseCase getTaskUseCase,
             CreateTaskUseCase createTaskUseCase,
+            JsonCreateTaskConverter jsonCreateTaskConverter,
             UpdateTaskUseCase updateTaskUseCase,
+            JsonUpdateTaskConverter jsonUpdateTaskConverter,
             DeleteTaskUseCase deleteTaskUseCase
     ) {
         this.listTaskUseCase = listTaskUseCase;
         this.taskJsonConverter = taskJsonConverter;
         this.getTaskUseCase = getTaskUseCase;
         this.createTaskUseCase = createTaskUseCase;
+        this.jsonCreateTaskConverter = jsonCreateTaskConverter;
         this.updateTaskUseCase = updateTaskUseCase;
+        this.jsonUpdateTaskConverter = jsonUpdateTaskConverter;
         this.deleteTaskUseCase = deleteTaskUseCase;
     }
 
@@ -69,19 +76,19 @@ public class TaskService {
     /**
      * Public method that inserts a naw task in the database
      *
-     * @param createTaskDTO The task to insert
+     * @param jsonCreateTaskDTO The task to insert
      */
-    public void create(CreateTaskDTO createTaskDTO) {
-        this.createTaskUseCase.execute(createTaskDTO);
+    public void create(JsonCreateTaskDTO jsonCreateTaskDTO) {
+        this.createTaskUseCase.execute(this.jsonCreateTaskConverter.fromDto(jsonCreateTaskDTO));
     }
 
     /**
      * Public method that updates a Task
      *
-     * @param updateTaskDTO The updated task
+     * @param jsonUpdateTaskDTO The updated task
      */
-    public void update(UpdateTaskDTO updateTaskDTO) {
-        this.updateTaskUseCase.execute(updateTaskDTO);
+    public void update(JsonUpdateTaskDTO jsonUpdateTaskDTO) {
+        this.updateTaskUseCase.execute(this.jsonUpdateTaskConverter.fromDto(jsonUpdateTaskDTO));
     }
 
     /**

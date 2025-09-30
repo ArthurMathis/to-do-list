@@ -1,12 +1,10 @@
 package diaconat_mulhouse.fr.backend.presentation.controllers;
 
-import diaconat_mulhouse.fr.backend.application.DTOs.CreateTaskDTO;
-import diaconat_mulhouse.fr.backend.application.DTOs.JsonUpdateTaskDTO;
-import diaconat_mulhouse.fr.backend.application.DTOs.TaskJsonDTO;
-import diaconat_mulhouse.fr.backend.application.DTOs.UpdateTaskDTO;
+import diaconat_mulhouse.fr.backend.application.DTOs.*;
 import diaconat_mulhouse.fr.backend.application.services.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -34,15 +32,18 @@ public class TaskController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public void create(@RequestBody CreateTaskDTO task) {
+    public void create(@RequestBody JsonCreateTaskDTO task) {
         this.taskService.create(task);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(path = "{id}")
     public void update(@PathVariable long id, @RequestBody JsonUpdateTaskDTO jsonUpdateTaskDTO) {
-        UpdateTaskDTO updateTaskDTO = new UpdateTaskDTO(id,  jsonUpdateTaskDTO.getTitled());
-        this.taskService.update(updateTaskDTO);
+        if(id != jsonUpdateTaskDTO.getId()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        this.taskService.update(jsonUpdateTaskDTO);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

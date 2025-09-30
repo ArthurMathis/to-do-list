@@ -19,10 +19,13 @@ export const routes: Routes = [
         path: "task",
         children : [
             {
+                path: "",
+                component: TaskInput
+            },
+            {
                 path: ":id",
                 component: TaskInput
             },
-
         ]
     },
     //// NOT FOUND ////

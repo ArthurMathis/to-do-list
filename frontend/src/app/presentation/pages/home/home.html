@@ -1,10 +1,16 @@
 <main class="mx-auto px-12 w-full h-full">
-    @for(task of taskList; track task) {
-        <app-task-card 
-            [task]="task" 
-            (taskCheck)="handleCheck($event)"
-            (taskUpdate)="handleUpdate($event)"
-            (taskDelete)="handleDelete($event)"
-        />
+    @if(!taskList || taskList()?.length === 0) {
+        <span>
+            Aucun tâche renseignée.
+        </span>
+    } @else {
+        @for(task of taskList(); track task.Id) {
+            <app-task-card 
+                [task]="task" 
+                (taskCheck)="handleCheck($event)"
+                (taskUpdate)="handleUpdate($event)"
+                (taskDelete)="handleDelete($event)"
+            />
+        }
     }
-</main>
+    </main>
