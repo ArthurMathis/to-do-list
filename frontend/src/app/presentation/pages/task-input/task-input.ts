@@ -1,10 +1,10 @@
-import { Component, inject, OnInit, Signal, signal } from '@angular/core';
+import { Component, inject, OnInit, Signal, signal, DestroyRef } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { TaskService } from '../../../domain/services/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from '../../../domain/models/task.model';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { TaskInterface } from '../../../domain/interfaces/task.interface';
 
 /**
@@ -31,7 +31,7 @@ export class TaskInput implements OnInit {
   protected task: Signal<Task|undefined>|undefined = undefined;
   protected formGroup: FormGroup; 
 
-  constructor() {
+  constructor(private destroyRef: DestroyRef) {
     this.formGroup = this.formBuilder.group({
       titled: [ "", Validators.required ]
     });
@@ -49,16 +49,30 @@ export class TaskInput implements OnInit {
     const response: string = this.formGroup.get('titled')!.value;
 
     if(this.task) {
-      const taskUpdate: TaskInterface = {
+      // Task update
+      this.taskService.update({
         id: this.task()!.Id,
         titled: this.task()!.Titled,
         checked: this.task()!.Checked
-      };
-      this.taskService.update(taskUpdate);
+      }).pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe({
+        next : () => {
+          const id = this.task!()!.Id;
+          console.log(`La tâche ${id} a bien été mise à jour.`);
+        },
+        error: (err) => console.error(err)
+      })
     } else {
+      // Task build
       this.taskService.create({
         titled: response
-      });
+      }).pipe(
+        takeUntilDestroyed(this.destroyRef)
+      ).subscribe({
+        next : () => console.log(`La tâche : "${response}" a bien été créée.`),
+        error: (err) => console.error(err)
+      })
     }
 
     this.router.navigate([ "/home" ]);

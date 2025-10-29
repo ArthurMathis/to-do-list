@@ -1,17 +1,13 @@
 package diaconat_mulhouse.fr.backend.domain.entities.Task;
 
 import diaconat_mulhouse.fr.backend.domain.entities.Establishment.EstablishmentJPA;
+import diaconat_mulhouse.fr.backend.domain.entities.LogableJpaEntity;
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
 @Entity(name = "tasks")
-public class TaskJPA {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class TaskJPA extends LogableJpaEntity {
 
     private String titled;
     private boolean checked = false;
@@ -20,27 +16,18 @@ public class TaskJPA {
     @JoinColumn(name = "establishment_id")
     private EstablishmentJPA establishment;
 
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
     // * CONSTRUCTORS * //
-    public TaskJPA(long id, String titled, boolean checked, EstablishmentJPA establishment, LocalDateTime createdAt) {
-        this.id = id;
+    public TaskJPA(Long id, String titled, boolean checked, EstablishmentJPA establishment, LocalDateTime createdAt) {
+        super(id, createdAt);
         this.titled = titled;
         this.checked = checked;
         this.establishment = establishment;
-        this.createdAt = createdAt;
     }
 
     public TaskJPA() {
     }
 
     // * GETTERS * //
-    public long getId() {
-        return id;
-    }
-
     public String getTitled() {
         return titled;
     }
@@ -51,9 +38,5 @@ public class TaskJPA {
 
     public EstablishmentJPA getEstablishment() {
         return establishment;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 }

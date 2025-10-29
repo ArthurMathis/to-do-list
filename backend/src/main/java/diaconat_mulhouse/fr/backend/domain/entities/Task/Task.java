@@ -1,6 +1,7 @@
 package diaconat_mulhouse.fr.backend.domain.entities.Task;
 
 import diaconat_mulhouse.fr.backend.domain.entities.Establishment.Establishment;
+import diaconat_mulhouse.fr.backend.domain.entities.LogableEntity;
 
 import java.time.LocalDateTime;
 
@@ -9,28 +10,21 @@ import java.time.LocalDateTime;
  *
  * @author Arthur MATHIS - arthur.mathis@diaconat-mulhouse.fr
  */
-public class Task {
+public class Task extends LogableEntity {
 
-    private final long id;
     private final String titled;
     private final Establishment establishment;
     private final boolean checked;
-    private final LocalDateTime createdAt;
 
     // * CONSTRUCTOR * //
     public Task(long id, String titled, boolean checked, Establishment establishment, LocalDateTime createdAt) {
-        this.id = id;
+        super(id, createdAt);
         this.titled = titled;
         this.establishment = establishment;
         this.checked = checked;
-        this.createdAt = createdAt;
     }
 
     // * GETTERS * //
-    public long getId() {
-        return id;
-    }
-
     public String getTitled() {
         return titled;
     }
@@ -41,9 +35,5 @@ public class Task {
 
     public boolean isChecked() {
         return checked;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 }

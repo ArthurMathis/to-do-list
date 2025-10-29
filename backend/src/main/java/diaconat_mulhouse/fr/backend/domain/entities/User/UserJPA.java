@@ -1,19 +1,15 @@
 package diaconat_mulhouse.fr.backend.domain.entities.User;
 
 import diaconat_mulhouse.fr.backend.domain.entities.Establishment.EstablishmentJPA;
+import diaconat_mulhouse.fr.backend.domain.entities.LogableJpaEntity;
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "users")
-public class UserJPA {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class UserJPA extends LogableJpaEntity {
 
     private String lastName;
     private String firstName;
@@ -30,29 +26,20 @@ public class UserJPA {
     )
     private List<EstablishmentJPA> establishments = new ArrayList<EstablishmentJPA>();
 
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-
     // * CONSTRUCTOR * //
-    public UserJPA(long id, String lastName, String firstName, String email, String password, List<EstablishmentJPA> establishments, LocalDateTime createdAt) {
-        this.id = id;
+    public UserJPA(Long id, String lastName, String firstName, String email, String password, List<EstablishmentJPA> establishments, LocalDateTime createdAt) {
+        super(id, createdAt);
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
         this.password = password;
         this.establishments = establishments;
-        this.createdAt = createdAt;
     }
 
     public UserJPA() {
     }
 
     // * GETTERS * //
-    public long getId() {
-        return id;
-    }
-
     public String getLastName() {
         return lastName;
     }
@@ -71,9 +58,5 @@ public class UserJPA {
 
     public List<EstablishmentJPA> getEstablishments() {
         return establishments;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 }

@@ -9,6 +9,8 @@ import diaconat_mulhouse.fr.backend.core.converters.establishment.establishmentJ
 import diaconat_mulhouse.fr.backend.core.converters.establishment.establishmentJson.EstablishmentJsonConverterImpl;
 import diaconat_mulhouse.fr.backend.core.converters.establishment.updateEstablishment.UpdateEstablishmentConverter;
 import diaconat_mulhouse.fr.backend.core.converters.establishment.updateEstablishment.UpdateEstablishmentConverterImpl;
+import diaconat_mulhouse.fr.backend.core.converters.map.MapConverter;
+import diaconat_mulhouse.fr.backend.core.converters.map.MapConverterImpl;
 import diaconat_mulhouse.fr.backend.core.converters.user.createUser.CreateUserConverter;
 import diaconat_mulhouse.fr.backend.core.converters.user.createUser.CreateUserConverterImpl;
 import diaconat_mulhouse.fr.backend.core.converters.user.updateUser.UpdateUserConverter;
@@ -23,6 +25,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class ConverterConfig {
+
+    // * MAP * //
+    @Bean
+    public MapConverter mapConverter() {
+        return new MapConverterImpl();
+    }
 
     // * ESTABLISHMENTS * //
     @Bean
@@ -67,4 +75,8 @@ public class ConverterConfig {
     }
 
     // * TASKS * //
+
+    // * LOG TYPE * //
+
+    // * LOG * //
 }
