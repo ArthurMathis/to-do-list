@@ -1,39 +1,31 @@
 package diaconat_mulhouse.fr.backend.domain.entities.Task;
 
-import diaconat_mulhouse.fr.backend.domain.entities.Establishment.Establishment;
-import diaconat_mulhouse.fr.backend.domain.entities.LogableEntity;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Class that represents a Task in the API
  *
  * @author Arthur MATHIS - arthur.mathis@diaconat-mulhouse.fr
  */
-public class Task extends LogableEntity {
+@Getter
+@Setter
+@Builder
+public class Task {
 
-    private final String titled;
-    private final Establishment establishment;
-    private final boolean checked;
+    private long id;
 
-    // * CONSTRUCTOR * //
-    public Task(long id, String titled, boolean checked, Establishment establishment, LocalDateTime createdAt) {
-        super(id, createdAt);
-        this.titled = titled;
-        this.establishment = establishment;
-        this.checked = checked;
-    }
+    private String titled;
+    private String description;
+    private boolean checked;
 
-    // * GETTERS * //
-    public String getTitled() {
-        return titled;
-    }
+    private Long projectId;
+    private List<Long> usersId;
 
-    public Establishment getEstablishment() {
-        return establishment;
-    }
+    private LocalDateTime createdAt;
 
-    public boolean isChecked() {
-        return checked;
-    }
 }

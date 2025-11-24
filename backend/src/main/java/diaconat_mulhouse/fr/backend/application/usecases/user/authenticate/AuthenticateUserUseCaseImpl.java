@@ -6,7 +6,6 @@ import diaconat_mulhouse.fr.backend.application.exception.authentification.Inval
 import diaconat_mulhouse.fr.backend.core.gateways.user.authenticate.AuthenticateUserGateway;
 import diaconat_mulhouse.fr.backend.core.security.Jwt.JwtProvider;
 import diaconat_mulhouse.fr.backend.domain.entities.User.User;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
@@ -32,12 +31,12 @@ public class AuthenticateUserUseCaseImpl implements AuthenticateUserUseCase {
     @Override
     public AuthToken execute(LoginUserDTO loginUserDTO) {
         User user = Optional.ofNullable(
-            this.authenticateUserGateway.getByEmail(loginUserDTO.getEmail())
+            this.authenticateUserGateway.getByEmail(loginUserDTO.email())
         ).orElseThrow(() -> new InvalidAuthentificationException(errorMessage));
 
-        if(!this.passwordEncoder.matches(loginUserDTO.getPassword(), user.getPassword())) {
+        if(!this.passwordEncoder.matches(loginUserDTO.password(), user.getPassword())) {
             throw new InvalidAuthentificationException(errorMessage);
         }
-        return this.jwtProvider.generateToken(loginUserDTO.getEmail());
+        return this.jwtProvider.generateToken(loginUserDTO.email());
     }
 }

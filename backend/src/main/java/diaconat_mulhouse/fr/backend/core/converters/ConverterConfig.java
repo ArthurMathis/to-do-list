@@ -9,6 +9,22 @@ import diaconat_mulhouse.fr.backend.core.converters.establishment.establishmentJ
 import diaconat_mulhouse.fr.backend.core.converters.establishment.establishmentJson.EstablishmentJsonConverterImpl;
 import diaconat_mulhouse.fr.backend.core.converters.establishment.updateEstablishment.UpdateEstablishmentConverter;
 import diaconat_mulhouse.fr.backend.core.converters.establishment.updateEstablishment.UpdateEstablishmentConverterImpl;
+import diaconat_mulhouse.fr.backend.core.converters.log.createLogConverter.CreateLogConverter;
+import diaconat_mulhouse.fr.backend.core.converters.log.createLogConverter.CreateLogConverterImpl;
+import diaconat_mulhouse.fr.backend.core.converters.log.logJPAConverter.LogJPAConverter;
+import diaconat_mulhouse.fr.backend.core.converters.log.logJPAConverter.LogJPAConverterImpl;
+import diaconat_mulhouse.fr.backend.core.converters.log.logJsonConverter.LogJsonConverter;
+import diaconat_mulhouse.fr.backend.core.converters.log.logJsonConverter.LogJsonConverterImpl;
+import diaconat_mulhouse.fr.backend.core.converters.log.updateLogConverter.UpdateLogConverter;
+import diaconat_mulhouse.fr.backend.core.converters.log.updateLogConverter.UpdateLogConverterImpl;
+import diaconat_mulhouse.fr.backend.core.converters.logType.createLogType.CreateLogTypeConverter;
+import diaconat_mulhouse.fr.backend.core.converters.logType.createLogType.CreateLogTypeConverterImpl;
+import diaconat_mulhouse.fr.backend.core.converters.logType.logTypeJPA.LogTypeJPAConverter;
+import diaconat_mulhouse.fr.backend.core.converters.logType.logTypeJPA.LogTypeJPAConverterImpl;
+import diaconat_mulhouse.fr.backend.core.converters.logType.logTypeJson.LogTypeJsonConverter;
+import diaconat_mulhouse.fr.backend.core.converters.logType.logTypeJson.LogTypeJsonConverterImpl;
+import diaconat_mulhouse.fr.backend.core.converters.logType.updateLogType.UpdateLogTypeConverter;
+import diaconat_mulhouse.fr.backend.core.converters.logType.updateLogType.UpdateLogTypeConverterImpl;
 import diaconat_mulhouse.fr.backend.core.converters.map.MapConverter;
 import diaconat_mulhouse.fr.backend.core.converters.map.MapConverterImpl;
 import diaconat_mulhouse.fr.backend.core.converters.user.createUser.CreateUserConverter;
@@ -30,6 +46,48 @@ public class ConverterConfig {
     @Bean
     public MapConverter mapConverter() {
         return new MapConverterImpl();
+    }
+
+    // * LOG TYPE * //
+    @Bean
+    public LogTypeJPAConverter logTypeJPAConverter() {
+        return new LogTypeJPAConverterImpl();
+    }
+
+    @Bean
+    public LogTypeJsonConverter logTypeJsonConverter() {
+        return new LogTypeJsonConverterImpl();
+    }
+
+    @Bean
+    public CreateLogTypeConverter createLogTypeConverter() {
+        return new CreateLogTypeConverterImpl();
+    }
+
+    @Bean
+    public UpdateLogTypeConverter updateLogTypeConverter() {
+        return new UpdateLogTypeConverterImpl();
+    }
+
+    // * LOG * //
+    @Bean
+    public LogJPAConverter logJPAConverter(LogTypeJPAConverter logTypeJPAConverter, UserJPAConverter userJPAConverter, MapConverter mapConverter) {
+        return new LogJPAConverterImpl(logTypeJPAConverter, userJPAConverter, mapConverter);
+    }
+
+    @Bean
+    public LogJsonConverter logJsonConverter(LogTypeJsonConverter logTypeJsonConverter, UserJsonConverter userJsonConverter) {
+        return new LogJsonConverterImpl(logTypeJsonConverter, userJsonConverter);
+    }
+
+    @Bean
+    public CreateLogConverter createLogConverter(LogTypeJsonConverter logTypeJsonConverter, UserJsonConverter userJsonConverter) {
+        return new CreateLogConverterImpl(logTypeJsonConverter, userJsonConverter);
+    }
+
+    @Bean
+    public UpdateLogConverter updateLogTypeConverter(LogTypeJsonConverter logTypeJsonConverter, UserJsonConverter userJsonConverter) {
+        return new UpdateLogConverterImpl(logTypeJsonConverter, userJsonConverter);
     }
 
     // * ESTABLISHMENTS * //
@@ -76,7 +134,4 @@ public class ConverterConfig {
 
     // * TASKS * //
 
-    // * LOG TYPE * //
-
-    // * LOG * //
 }

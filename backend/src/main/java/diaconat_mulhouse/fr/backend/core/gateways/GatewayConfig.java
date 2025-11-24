@@ -1,6 +1,8 @@
 package diaconat_mulhouse.fr.backend.core.gateways;
 
 import diaconat_mulhouse.fr.backend.core.converters.establishment.establishmentJPA.EstablishmentJPAConverter;
+import diaconat_mulhouse.fr.backend.core.converters.log.logJPAConverter.LogJPAConverter;
+import diaconat_mulhouse.fr.backend.core.converters.logType.logTypeJPA.LogTypeJPAConverter;
 import diaconat_mulhouse.fr.backend.core.converters.user.userJPA.UserJPAConverter;
 import diaconat_mulhouse.fr.backend.core.gateways.establishment.create.CreateEstablishmentGateway;
 import diaconat_mulhouse.fr.backend.core.gateways.establishment.create.CreateEstablishmentGatewayImpl;
@@ -12,6 +14,18 @@ import diaconat_mulhouse.fr.backend.core.gateways.establishment.index.IndexEstab
 import diaconat_mulhouse.fr.backend.core.gateways.establishment.index.IndexEstablishmentGatewayImpl;
 import diaconat_mulhouse.fr.backend.core.gateways.establishment.update.UpdateEstablishmentGateway;
 import diaconat_mulhouse.fr.backend.core.gateways.establishment.update.UpdateEstablishmentGatewayImpl;
+import diaconat_mulhouse.fr.backend.core.gateways.log.index.IndexLogGateway;
+import diaconat_mulhouse.fr.backend.core.gateways.log.index.IndexLogGatewayImpl;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.create.CreateLogTypeGateway;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.create.CreateLogTypeGatewayImpl;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.delete.DeleteLogTypeGateway;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.delete.DeleteLogTypeGatewayImpl;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.get.GetLogTypeGateway;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.get.GetLogTypeGatewayImpl;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.index.IndexLogTypeGateway;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.index.IndexLogTypeGatewayImpl;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.update.UpdateLogTypeGateway;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.update.UpdateLogTypeGatewayImpl;
 import diaconat_mulhouse.fr.backend.core.gateways.user.authenticate.AuthenticateUserGateway;
 import diaconat_mulhouse.fr.backend.core.gateways.user.authenticate.AuthenticateUserGatewayImpl;
 import diaconat_mulhouse.fr.backend.core.gateways.user.create.CreateUserGateway;
@@ -25,12 +39,46 @@ import diaconat_mulhouse.fr.backend.core.gateways.user.index.IndexUserGatewayImp
 import diaconat_mulhouse.fr.backend.core.gateways.user.update.UpdateUserGateway;
 import diaconat_mulhouse.fr.backend.core.gateways.user.update.UpdateUserGatewayImpl;
 import diaconat_mulhouse.fr.backend.domain.repositories.EstablishmentRepository;
+import diaconat_mulhouse.fr.backend.domain.repositories.LogRepository;
+import diaconat_mulhouse.fr.backend.domain.repositories.LogTypeRepository;
 import diaconat_mulhouse.fr.backend.domain.repositories.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class GatewayConfig {
+
+    // * LOG TYPE * //
+    @Bean
+    public IndexLogTypeGateway indexLogTypeGateway(LogTypeRepository logTypeRepository, LogTypeJPAConverter logTypeJPAConverter) {
+        return new IndexLogTypeGatewayImpl(logTypeRepository,  logTypeJPAConverter);
+    }
+
+    @Bean
+    public GetLogTypeGateway getLogTypeGateway(LogTypeRepository logTypeRepository,  LogTypeJPAConverter logTypeJPAConverter) {
+        return new GetLogTypeGatewayImpl(logTypeRepository,  logTypeJPAConverter);
+    }
+
+    @Bean
+    public CreateLogTypeGateway createLogTypeGateway(LogTypeRepository logTypeRepository, LogTypeJPAConverter logTypeJPAConverter) {
+        return new CreateLogTypeGatewayImpl(logTypeRepository,  logTypeJPAConverter);
+    }
+
+    @Bean
+    public UpdateLogTypeGateway updateLogTypeGateway(LogTypeRepository logTypeRepository, LogTypeJPAConverter logTypeJPAConverter) {
+        return new UpdateLogTypeGatewayImpl(logTypeRepository,  logTypeJPAConverter);
+    }
+
+    @Bean
+    public DeleteLogTypeGateway deleteLogTypeGateway(LogTypeRepository logTypeRepository) {
+        return new DeleteLogTypeGatewayImpl(logTypeRepository);
+    }
+
+    // * LOG * //
+    @Bean
+    public IndexLogGateway indexLogGateway(LogRepository logRepository, LogJPAConverter logJPAConverter) {
+        return new IndexLogGatewayImpl(logRepository,  logJPAConverter);
+    }
 
     // * ESTABLISHMENTS * //
     @Bean

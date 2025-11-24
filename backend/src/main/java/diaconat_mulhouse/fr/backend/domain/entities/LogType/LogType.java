@@ -1,30 +1,25 @@
 package diaconat_mulhouse.fr.backend.domain.entities.LogType;
 
-import java.time.LocalDateTime;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+/**
+ * Class that represents a LogType in the API
+ *
+ * @author Arthur MATHIS - arthur.mathis@diaconat-mulhouse.fr
+ */
+@Getter
+@Setter
+@Builder
 public class LogType {
 
     private long id;
     private String title;
+    private List<Long> logsId;
     private LocalDateTime createdAt;
 
-    // * CONSTRUCTOR * //
-    public LogType(long id, String title, LocalDateTime createdAt) {
-        this.id = id;
-        this.title = title;
-        this.createdAt = createdAt;
-    }
-
-    // * GETTERS * //
-    public long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
 }

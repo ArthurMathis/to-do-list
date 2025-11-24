@@ -10,6 +10,18 @@ import diaconat_mulhouse.fr.backend.application.usecases.establishment.index.Ind
 import diaconat_mulhouse.fr.backend.application.usecases.establishment.index.IndexEstablishmentUseCaseImpl;
 import diaconat_mulhouse.fr.backend.application.usecases.establishment.update.UpdateEstablishmentUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.establishment.update.UpdateEstablishmentUseCaseImpl;
+import diaconat_mulhouse.fr.backend.application.usecases.log.index.IndexLogUseCase;
+import diaconat_mulhouse.fr.backend.application.usecases.log.index.IndexLogUseCaseImpl;
+import diaconat_mulhouse.fr.backend.application.usecases.logType.create.CreateLogTypeUseCase;
+import diaconat_mulhouse.fr.backend.application.usecases.logType.create.CreateLogTypeUseCaseImpl;
+import diaconat_mulhouse.fr.backend.application.usecases.logType.delete.DeleteLogTypeUseCase;
+import diaconat_mulhouse.fr.backend.application.usecases.logType.delete.DeleteLogTypeUseCaseImpl;
+import diaconat_mulhouse.fr.backend.application.usecases.logType.get.GetLogTypeUseCase;
+import diaconat_mulhouse.fr.backend.application.usecases.logType.get.GetLogTypeUseCaseImpl;
+import diaconat_mulhouse.fr.backend.application.usecases.logType.index.IndexLogTypeUseCase;
+import diaconat_mulhouse.fr.backend.application.usecases.logType.index.IndexLogTypeUseCaseImpl;
+import diaconat_mulhouse.fr.backend.application.usecases.logType.update.UpdateLogTypeUseCase;
+import diaconat_mulhouse.fr.backend.application.usecases.logType.update.UpdateLogTypeUseCaseImpl;
 import diaconat_mulhouse.fr.backend.application.usecases.user.authenticate.AuthenticateUserUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.user.authenticate.AuthenticateUserUseCaseImpl;
 import diaconat_mulhouse.fr.backend.application.usecases.user.create.CreateUserUseCase;
@@ -27,6 +39,12 @@ import diaconat_mulhouse.fr.backend.core.gateways.establishment.delete.DeleteEst
 import diaconat_mulhouse.fr.backend.core.gateways.establishment.get.GetEstablishmentGateway;
 import diaconat_mulhouse.fr.backend.core.gateways.establishment.index.IndexEstablishmentGateway;
 import diaconat_mulhouse.fr.backend.core.gateways.establishment.update.UpdateEstablishmentGateway;
+import diaconat_mulhouse.fr.backend.core.gateways.log.index.IndexLogGateway;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.create.CreateLogTypeGateway;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.delete.DeleteLogTypeGateway;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.get.GetLogTypeGateway;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.index.IndexLogTypeGateway;
+import diaconat_mulhouse.fr.backend.core.gateways.logType.update.UpdateLogTypeGateway;
 import diaconat_mulhouse.fr.backend.core.gateways.user.authenticate.AuthenticateUserGateway;
 import diaconat_mulhouse.fr.backend.core.gateways.user.create.CreateUserGateway;
 import diaconat_mulhouse.fr.backend.core.gateways.user.delete.DeleteUserGateway;
@@ -40,6 +58,38 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class UseCaseConfig {
+
+    // * LOG TYPE * //
+    @Bean
+    public IndexLogTypeUseCase indexLogTypeUseCase(IndexLogTypeGateway indexLogTypeGateway) {
+        return new IndexLogTypeUseCaseImpl(indexLogTypeGateway);
+    }
+
+    @Bean
+    public GetLogTypeUseCase getLogTypeUseCase(GetLogTypeGateway getLogTypeGateway) {
+        return new GetLogTypeUseCaseImpl(getLogTypeGateway);
+    }
+
+    @Bean
+    public CreateLogTypeUseCase createLogTypeUseCase(CreateLogTypeGateway createLogTypeGateway) {
+        return new CreateLogTypeUseCaseImpl(createLogTypeGateway);
+    }
+
+    @Bean
+    public UpdateLogTypeUseCase updateLogTypeUseCase(UpdateLogTypeGateway updateLogTypeGateway) {
+        return new UpdateLogTypeUseCaseImpl(updateLogTypeGateway);
+    }
+
+    @Bean
+    public DeleteLogTypeUseCase deleteLogTypeUseCase(DeleteLogTypeGateway deleteLogTypeGateway) {
+        return new DeleteLogTypeUseCaseImpl(deleteLogTypeGateway);
+    }
+
+    // * LOG * //
+    @Bean
+    public IndexLogUseCase indexLogUseCase(IndexLogGateway indexLogGateway) {
+        return new IndexLogUseCaseImpl(indexLogGateway);
+    }
 
     // * ESTABLISHMENTS  * //
     @Bean

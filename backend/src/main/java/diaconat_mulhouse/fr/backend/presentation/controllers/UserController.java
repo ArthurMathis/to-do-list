@@ -43,7 +43,7 @@ public class UserController {
     @PutMapping(path = "{id}", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void update(@PathVariable long id, @RequestBody UpdateUserDTO updateUserDTO) {
-        if(id != updateUserDTO.getId()) {
+        if(id != updateUserDTO.id()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 

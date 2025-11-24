@@ -43,7 +43,7 @@ public class EstablishmentController {
     @PutMapping(path = "{id}", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void update(@PathVariable long id, @RequestBody UpdateEstablishmentDTO updateEstablishmentDTO) {
-        if(id != updateEstablishmentDTO.getId()) {
+        if(id != updateEstablishmentDTO.id()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         this.establishmentService.update(updateEstablishmentDTO);

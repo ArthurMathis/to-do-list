@@ -1,22 +1,7 @@
 package diaconat_mulhouse.fr.backend.application.DTOs.user;
 
-public class LoginUserDTO {
+import lombok.Builder;
 
-    private final String email;
-    private final String password;
-
-    // * CONSTRUCTOR * //
-    public LoginUserDTO(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
-    // * GETTERS * //
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
+@Builder
+public record LoginUserDTO(String email, String password) {
 }

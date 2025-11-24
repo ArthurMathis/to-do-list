@@ -1,79 +1,51 @@
 package diaconat_mulhouse.fr.backend.domain.entities.Log;
 
 import diaconat_mulhouse.fr.backend.domain.entities.LogType.LogTypeJPA;
-import diaconat_mulhouse.fr.backend.domain.entities.LogableJpaEntity;
 import diaconat_mulhouse.fr.backend.domain.entities.User.UserJPA;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 
 @Entity
+@Setter
+@Getter
+@Builder
+@NoArgsConstructor
 public class LogJPA {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private LogTypeJPA logType;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private UserJPA user;
-
+    @Column(columnDefinition = "TEXT")
+    private String details;
     private String ipAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private LogableJpaEntity logableEntity;
+    @JoinColumn(name = "log_type_id")
+    private LogTypeJPA logType;
 
-    @Column(columnDefinition = "TEXT")
-    private String details;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserJPA user;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     // * CONSTRUCTOR * //
-    public LogJPA(Long id, LogTypeJPA logType, UserJPA user, String ipAddress, LogableJpaEntity logableEntity, String details, LocalDateTime createdAt) {
+    public LogJPA(Long id, String details, String ipAddress, LogTypeJPA logType, UserJPA user, LocalDateTime createdAt) {
         this.id = id;
         this.logType = logType;
         this.user = user;
         this.ipAddress = ipAddress;
-        this.logableEntity = logableEntity;
         this.details = details;
         this.createdAt = createdAt;
     }
 
-    public LogJPA() {
-    }
-
-    // * GETTERS * //
-    public Long getId() {
-        return id;
-    }
-
-    public LogTypeJPA getLogType() {
-        return logType;
-    }
-
-    public UserJPA getUser() {
-        return user;
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public LogableJpaEntity getLogableEntity() {
-        return logableEntity;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
 }

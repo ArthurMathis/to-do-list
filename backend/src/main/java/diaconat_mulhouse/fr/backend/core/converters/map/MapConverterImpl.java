@@ -6,14 +6,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 public class MapConverterImpl implements MapConverter {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public String fromDto(Map<String, String> map) {
+    public String fromDto(HashMap<String, String> map) {
         if (map == null || map.isEmpty()) {
             return null;
         }
@@ -26,7 +25,7 @@ public class MapConverterImpl implements MapConverter {
     }
 
     @Override
-    public Map<String, String> toDto(String json) {
+    public HashMap<String, String> toDto(String json) {
         if (json == null || json.isEmpty()) {
             return new HashMap<>();
         }

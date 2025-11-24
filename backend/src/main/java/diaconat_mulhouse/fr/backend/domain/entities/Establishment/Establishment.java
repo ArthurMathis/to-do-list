@@ -1,27 +1,30 @@
 package diaconat_mulhouse.fr.backend.domain.entities.Establishment;
 
-import diaconat_mulhouse.fr.backend.domain.entities.LogableEntity;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-public class Establishment extends LogableEntity {
+/**
+ * Class that represents a Establishment in the API
+ *
+ * @author Arthur MATHIS - arthur.mathis@diaconat-mulhouse.fr
+ */
+@Getter
+@Setter
+@Builder
+public class Establishment {
 
-    private final String name;
-    private final String address;
+    private long id;
+    private String name;
+    private String city;
+    private String postCode;
 
-    // * CONSTRUCTOR * //
-    public Establishment(long id, String name, String address, LocalDateTime createdAt) {
-        super(id, createdAt);
-        this.name = name;
-        this.address = address;
-    }
+    private List<Long> projectsId;
+    private List<Long> usersId;
 
-    // * GETTERS * //
-    public String getName() {
-        return name;
-    }
+    private LocalDateTime createdAt;
 
-    public String getAddress() {
-        return address;
-    }
 }
