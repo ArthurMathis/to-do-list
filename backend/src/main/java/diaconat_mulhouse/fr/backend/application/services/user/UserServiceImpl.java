@@ -1,21 +1,26 @@
 package diaconat_mulhouse.fr.backend.application.services.user;
 
-import diaconat_mulhouse.fr.backend.application.DTOs.user.*;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.authentification.AuthToken;
 import diaconat_mulhouse.fr.backend.application.usecases.user.authenticate.AuthenticateUserUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.user.create.CreateUserUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.user.delete.DeleteUserUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.user.get.GetUserUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.user.index.IndexUserUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.user.update.UpdateUserUseCase;
-import diaconat_mulhouse.fr.backend.core.converters.user.createUser.CreateUserConverter;
-import diaconat_mulhouse.fr.backend.core.converters.user.updateUser.UpdateUserConverter;
-import diaconat_mulhouse.fr.backend.core.converters.user.userJson.UserJsonConverter;
-import diaconat_mulhouse.fr.backend.domain.entities.User.User;
+import diaconat_mulhouse.fr.backend.application.converters.user.create.UserCreateConverter;
+import diaconat_mulhouse.fr.backend.application.converters.user.json.UserJsonConverter;
+import diaconat_mulhouse.fr.backend.application.converters.user.update.UserUpdateConverter;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.user.CreateUserDTO;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.user.LoginUserDTO;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.user.UpdateUserDTO;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.user.UserJsonDTO;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final IndexUserUseCase indexUserUseCase;
@@ -26,31 +31,8 @@ public class UserServiceImpl implements UserService {
     private final AuthenticateUserUseCase authenticateUserUseCase;
 
     private final UserJsonConverter userJsonConverter;
-    private final CreateUserConverter createUserConverter;
-    private final UpdateUserConverter updateUserConverter;
-
-    public UserServiceImpl(
-            IndexUserUseCase indexUserUseCase,
-            GetUserUseCase getUserUseCase,
-            CreateUserUseCase createUserUseCase,
-            UpdateUserUseCase updateUserUseCase,
-            DeleteUserUseCase deleteUserUseCase,
-            AuthenticateUserUseCase authenticateUserUseCase,
-            UserJsonConverter userJsonConverter,
-            CreateUserConverter createUserConverter,
-            UpdateUserConverter updateUserConverter
-    ) {
-        this.indexUserUseCase = indexUserUseCase;
-        this.getUserUseCase = getUserUseCase;
-        this.createUserUseCase = createUserUseCase;
-        this.updateUserUseCase = updateUserUseCase;
-        this.deleteUserUseCase = deleteUserUseCase;
-        this.authenticateUserUseCase = authenticateUserUseCase;
-
-        this.userJsonConverter = userJsonConverter;
-        this.createUserConverter = createUserConverter;
-        this.updateUserConverter = updateUserConverter;
-    }
+    private final UserCreateConverter userCreateConverter;
+    private final UserUpdateConverter userUpdateConverter;
 
     @Override
     public List<UserJsonDTO> index() {
@@ -64,12 +46,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long create(CreateUserDTO createUserDTO) {
-        return this.createUserUseCase.execute(this.createUserConverter.fromDto(createUserDTO));
+        return this.createUserUseCase.execute(this.userCreateConverter.fromDto(createUserDTO));
     }
 
     @Override
     public void update(UpdateUserDTO updateUserDTO) {
-        this.updateUserUseCase.execute(this.updateUserConverter.fromDto(updateUserDTO));
+        this.updateUserUseCase.execute(this.userUpdateConverter.fromDto(updateUserDTO));
     }
 
     @Override
@@ -81,4 +63,5 @@ public class UserServiceImpl implements UserService {
     public AuthToken authenticate(LoginUserDTO loginUserDTO) {
         return this.authenticateUserUseCase.execute(loginUserDTO);
     }
+
 }

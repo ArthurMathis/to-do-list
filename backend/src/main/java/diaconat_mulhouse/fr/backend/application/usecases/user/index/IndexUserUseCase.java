@@ -1,8 +1,7 @@
 package diaconat_mulhouse.fr.backend.application.usecases.user.index;
 
 import diaconat_mulhouse.fr.backend.application.usecases.UseCase;
-import diaconat_mulhouse.fr.backend.core.gateways.user.index.IndexUserGateway;
-import diaconat_mulhouse.fr.backend.domain.entities.User.User;
+import diaconat_mulhouse.fr.backend.domain.entities.user.User;
 
 import java.util.List;
 

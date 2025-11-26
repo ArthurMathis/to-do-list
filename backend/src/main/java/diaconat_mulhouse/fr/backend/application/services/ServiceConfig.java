@@ -22,15 +22,15 @@ import diaconat_mulhouse.fr.backend.application.usecases.user.delete.DeleteUserU
 import diaconat_mulhouse.fr.backend.application.usecases.user.get.GetUserUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.user.index.IndexUserUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.user.update.UpdateUserUseCase;
-import diaconat_mulhouse.fr.backend.core.converters.establishment.createEstablishment.CreateEstablishmentConverter;
-import diaconat_mulhouse.fr.backend.core.converters.establishment.establishmentJson.EstablishmentJsonConverter;
-import diaconat_mulhouse.fr.backend.core.converters.establishment.updateEstablishment.UpdateEstablishmentConverter;
-import diaconat_mulhouse.fr.backend.core.converters.logType.createLogType.CreateLogTypeConverter;
-import diaconat_mulhouse.fr.backend.core.converters.logType.logTypeJson.LogTypeJsonConverter;
-import diaconat_mulhouse.fr.backend.core.converters.logType.updateLogType.UpdateLogTypeConverter;
-import diaconat_mulhouse.fr.backend.core.converters.user.createUser.CreateUserConverter;
-import diaconat_mulhouse.fr.backend.core.converters.user.updateUser.UpdateUserConverter;
-import diaconat_mulhouse.fr.backend.core.converters.user.userJson.UserJsonConverter;
+import diaconat_mulhouse.fr.backend.application.converters.establishment.create.EstablishmentCreateConverter;
+import diaconat_mulhouse.fr.backend.application.converters.establishment.json.EstablishmentJsonConverter;
+import diaconat_mulhouse.fr.backend.application.converters.establishment.update.EstablishmentUpdateConverter;
+import diaconat_mulhouse.fr.backend.application.converters.logType.create.LogTypeCreateConverter;
+import diaconat_mulhouse.fr.backend.application.converters.logType.json.LogTypeJsonConverter;
+import diaconat_mulhouse.fr.backend.application.converters.logType.update.LogTypeUpdateConverter;
+import diaconat_mulhouse.fr.backend.application.converters.user.create.UserCreateConverter;
+import diaconat_mulhouse.fr.backend.application.converters.user.json.UserJsonConverter;
+import diaconat_mulhouse.fr.backend.application.converters.user.update.UserUpdateConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -45,8 +45,8 @@ public class ServiceConfig {
         UpdateLogTypeUseCase updateLogTypeUseCase,
         DeleteLogTypeUseCase deleteLogTypeUseCase,
         LogTypeJsonConverter logTypeJsonConverter,
-        CreateLogTypeConverter createLogTypeConverter,
-        UpdateLogTypeConverter updateLogTypeConverter
+        LogTypeCreateConverter logTypeCreateConverter,
+        LogTypeUpdateConverter logTypeUpdateConverter
     ) {
         return new LogTypeServiceImpl(
             indexLogTypeUseCase,
@@ -55,8 +55,8 @@ public class ServiceConfig {
             updateLogTypeUseCase,
             deleteLogTypeUseCase,
             logTypeJsonConverter,
-            createLogTypeConverter,
-            updateLogTypeConverter
+                logTypeCreateConverter,
+                logTypeUpdateConverter
         );
     }
 
@@ -68,8 +68,8 @@ public class ServiceConfig {
         UpdateEstablishmentUseCase updateEstablishmentUseCase,
         DeleteEstablishmentUseCase deleteEstablishmentUseCase,
         EstablishmentJsonConverter establishmentJsonConverter,
-        CreateEstablishmentConverter createEstablishmentConverter,
-        UpdateEstablishmentConverter updateEstablishmentConverter
+        EstablishmentCreateConverter establishmentCreateConverter,
+        EstablishmentUpdateConverter establishmentUpdateConverter
     ) {
         return new EstablishmentServiceImpl(
             indexEstablishmentUseCase,
@@ -78,8 +78,8 @@ public class ServiceConfig {
             updateEstablishmentUseCase,
             deleteEstablishmentUseCase,
             establishmentJsonConverter,
-            createEstablishmentConverter,
-            updateEstablishmentConverter
+            establishmentCreateConverter,
+            establishmentUpdateConverter
         );
     }
 
@@ -92,8 +92,8 @@ public class ServiceConfig {
         DeleteUserUseCase deleteUserUseCase,
         AuthenticateUserUseCase authenticateUserUseCase,
         UserJsonConverter userJsonConverter,
-        CreateUserConverter createUserConverter,
-        UpdateUserConverter updateUserConverter
+        UserCreateConverter userCreateConverter,
+        UserUpdateConverter userUpdateConverter
     ) {
         return new UserServiceImpl(
             indexUserUseCase,
@@ -103,8 +103,8 @@ public class ServiceConfig {
             deleteUserUseCase,
             authenticateUserUseCase,
             userJsonConverter,
-            createUserConverter,
-            updateUserConverter
+            userCreateConverter,
+            userUpdateConverter
         );
     }
 

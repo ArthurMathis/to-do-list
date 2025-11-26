@@ -1,7 +1,11 @@
 package diaconat_mulhouse.fr.backend.application.services.user;
 
-import diaconat_mulhouse.fr.backend.application.DTOs.user.*;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.authentification.AuthToken;
 import diaconat_mulhouse.fr.backend.application.services.CrudService;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.user.CreateUserDTO;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.user.LoginUserDTO;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.user.UpdateUserDTO;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.user.UserJsonDTO;
 
 public interface UserService extends CrudService<Long, UserJsonDTO, CreateUserDTO, UpdateUserDTO> {
 

@@ -1,7 +1,7 @@
 package diaconat_mulhouse.fr.backend.application.usecases.logType.update;
 
-import diaconat_mulhouse.fr.backend.core.gateways.logType.update.UpdateLogTypeGateway;
-import diaconat_mulhouse.fr.backend.domain.entities.LogType.LogType;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.logType.update.UpdateLogTypeGateway;
+import diaconat_mulhouse.fr.backend.domain.entities.logType.LogType;
 
 public class UpdateLogTypeUseCaseImpl implements UpdateLogTypeUseCase {
 

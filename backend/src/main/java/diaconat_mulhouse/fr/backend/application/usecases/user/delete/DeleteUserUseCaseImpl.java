@@ -1,6 +1,6 @@
 package diaconat_mulhouse.fr.backend.application.usecases.user.delete;
 
-import diaconat_mulhouse.fr.backend.core.gateways.user.delete.DeleteUserGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.user.delete.DeleteUserGateway;
 
 public class DeleteUserUseCaseImpl implements DeleteUserUseCase {
 

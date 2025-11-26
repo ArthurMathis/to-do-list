@@ -1,7 +1,7 @@
 package diaconat_mulhouse.fr.backend.presentation.controllers;
 
-import diaconat_mulhouse.fr.backend.application.DTOs.user.AuthToken;
-import diaconat_mulhouse.fr.backend.application.DTOs.user.LoginUserDTO;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.authentification.AuthToken;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.user.LoginUserDTO;
 import diaconat_mulhouse.fr.backend.application.services.user.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,4 +24,5 @@ public class AuthentificationController {
     public AuthToken authenticate(@RequestBody LoginUserDTO loginUserDTO) {
         return this.userService.authenticate(loginUserDTO);
     }
+
 }

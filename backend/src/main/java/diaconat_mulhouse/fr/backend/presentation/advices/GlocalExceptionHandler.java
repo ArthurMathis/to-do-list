@@ -1,6 +1,6 @@
 package diaconat_mulhouse.fr.backend.presentation.advices;
 
-import diaconat_mulhouse.fr.backend.application.exception.authentification.InvalidAuthentificationException;
+import diaconat_mulhouse.fr.backend.application.exceptions.authentification.InvalidAuthentificationException;
 import diaconat_mulhouse.fr.backend.presentation.advices.apiResponse.ApiError;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;

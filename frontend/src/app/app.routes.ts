@@ -1,36 +1,34 @@
-import { Home } from './presentation/pages/home/home';
 import { Routes } from '@angular/router';
+import { EstablishmentsList } from './presentation/pages/establishments.list/establishments.list';
 import { NotFound } from './presentation/pages/not-found/not-found';
-import { TaskInput } from './presentation/pages/task-input/task-input';
+import { Login } from './presentation/pages/login/login';
+import { AuthGuard } from './core/guard/auth.guard';
 
 export const routes: Routes = [
-    //// HOME //// 
     {
-        path      : "",
-        redirectTo: "home",
-        pathMatch : "full"
-    }, 
+        path: "login",
+        component: Login
+    },
     {
-        path     : "home",
-        component: Home
-    }, 
-    //// TASK ////
-    {
-        path: "task",
-        children : [
+        path: "",
+        canActivate: [ AuthGuard ],
+        canActivateChild: [ AuthGuard ],
+        children: [
             {
                 path: "",
-                component: TaskInput
+                pathMatch: "full",
+                redirectTo: "establishments"
             },
             {
-                path: ":id",
-                component: TaskInput
-            },
+                path: "establishments",
+                component: EstablishmentsList,
+                
+            }, 
+            
         ]
     },
-    //// NOT FOUND ////
     {
-        path     : "**",
+        path: "**",
         component: NotFound
     }
 ];

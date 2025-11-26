@@ -1,7 +1,7 @@
 package diaconat_mulhouse.fr.backend.application.usecases.user.update;
 
-import diaconat_mulhouse.fr.backend.core.gateways.user.update.UpdateUserGateway;
-import diaconat_mulhouse.fr.backend.domain.entities.User.User;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.user.update.UpdateUserGateway;
+import diaconat_mulhouse.fr.backend.domain.entities.user.User;
 
 public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
 

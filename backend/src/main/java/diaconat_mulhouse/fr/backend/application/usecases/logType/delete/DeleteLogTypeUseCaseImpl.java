@@ -1,6 +1,6 @@
 package diaconat_mulhouse.fr.backend.application.usecases.logType.delete;
 
-import diaconat_mulhouse.fr.backend.core.gateways.logType.delete.DeleteLogTypeGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.logType.delete.DeleteLogTypeGateway;
 
 public class DeleteLogTypeUseCaseImpl implements DeleteLogTypeUseCase {
 

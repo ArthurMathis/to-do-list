@@ -1,0 +1,71 @@
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row-reverse gap-12">
+    <div class="text-center lg:text-left">
+      <h1 class="text-5xl font-bold">
+        Bienvenue !
+      </h1>
+
+      <p class="py-6">
+        Connectez-vous à l'aide de votre <b>adresse email</b> et de <b>votre mot de passe</b> pour accéder à l'application. 
+      </p>
+    </div>
+
+    <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+      <form 
+        class="card-body"
+        [formGroup]="formGroup"
+        (submit)="handleSubmit($event)"
+      >
+        <fieldset class="fieldset">
+          <label class="label">
+            Email
+          </label>
+
+          <input 
+            type="email" 
+            class="input" 
+            placeholder="dupond.jean@diaconat-mulhouse.fr" 
+            formControlName="email"
+          />
+
+          @if(formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched) {
+            <span class="text-xs text-red-500">
+              Ce champ est obligatoire.
+            </span>
+          } 
+
+          <label class="label">
+            Password
+          </label>
+
+          <input 
+            type="password" 
+            class="input" 
+            placeholder="••••••••••••" 
+            formControlName="password"
+          />
+
+          @if(formGroup.get('password')?.hasError('required') && formGroup.get('password')?.touched) {
+            <span class="text-xs text-red-500">
+              Ce champ est obligatoire.
+            </span>
+          } 
+
+          @if(loginError()) {
+            <article class="text-red-500">
+              {{ loginError() }}
+            </article>
+          }
+
+          <button 
+            type="submit"
+            class="btn btn-neutral mt-4"
+            [disabled]="formGroup.invalid"
+          >
+            Se connecter
+          </button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

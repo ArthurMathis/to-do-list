@@ -1,10 +1,9 @@
 package diaconat_mulhouse.fr.backend.presentation.controllers;
 
-import diaconat_mulhouse.fr.backend.application.DTOs.user.CreateUserDTO;
-import diaconat_mulhouse.fr.backend.application.DTOs.user.UpdateUserDTO;
-import diaconat_mulhouse.fr.backend.application.DTOs.user.UserJsonDTO;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.user.CreateUserDTO;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.user.UpdateUserDTO;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.user.UserJsonDTO;
 import diaconat_mulhouse.fr.backend.application.services.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -17,7 +16,6 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RequestMapping(path = "users")
 public class UserController {
 
-    @Autowired
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -46,7 +44,6 @@ public class UserController {
         if(id != updateUserDTO.id()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-
         this.userService.update(updateUserDTO);
     }
 

@@ -1,7 +1,7 @@
 package diaconat_mulhouse.fr.backend.application.usecases.logType.create;
 
-import diaconat_mulhouse.fr.backend.core.gateways.logType.create.CreateLogTypeGateway;
-import diaconat_mulhouse.fr.backend.domain.entities.LogType.LogType;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.logType.create.CreateLogTypeGateway;
+import diaconat_mulhouse.fr.backend.domain.entities.logType.LogType;
 
 public class CreateLogTypeUseCaseImpl implements CreateLogTypeUseCase {
 

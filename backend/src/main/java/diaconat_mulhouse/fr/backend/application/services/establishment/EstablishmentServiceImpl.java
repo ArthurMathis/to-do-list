@@ -1,16 +1,16 @@
 package diaconat_mulhouse.fr.backend.application.services.establishment;
 
-import diaconat_mulhouse.fr.backend.application.DTOs.establishment.CreateEstablishmentDTO;
-import diaconat_mulhouse.fr.backend.application.DTOs.establishment.EstablishmentJsonDTO;
-import diaconat_mulhouse.fr.backend.application.DTOs.establishment.UpdateEstablishmentDTO;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.establishment.CreateEstablishmentDTO;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.establishment.EstablishmentJsonDTO;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.establishment.UpdateEstablishmentDTO;
 import diaconat_mulhouse.fr.backend.application.usecases.establishment.create.CreateEstablishmentUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.establishment.delete.DeleteEstablishmentUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.establishment.get.GetEstablishmentUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.establishment.index.IndexEstablishmentUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.establishment.update.UpdateEstablishmentUseCase;
-import diaconat_mulhouse.fr.backend.core.converters.establishment.createEstablishment.CreateEstablishmentConverter;
-import diaconat_mulhouse.fr.backend.core.converters.establishment.establishmentJson.EstablishmentJsonConverter;
-import diaconat_mulhouse.fr.backend.core.converters.establishment.updateEstablishment.UpdateEstablishmentConverter;
+import diaconat_mulhouse.fr.backend.application.converters.establishment.create.EstablishmentCreateConverter;
+import diaconat_mulhouse.fr.backend.application.converters.establishment.json.EstablishmentJsonConverter;
+import diaconat_mulhouse.fr.backend.application.converters.establishment.update.EstablishmentUpdateConverter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +25,8 @@ public class EstablishmentServiceImpl implements EstablishmentService {
     private final DeleteEstablishmentUseCase deleteEstablishmentUseCase;
 
     private final EstablishmentJsonConverter establishmentJsonConverter;
-    private final CreateEstablishmentConverter createEstablishmentConverter;
-    private final UpdateEstablishmentConverter updateEstablishmentConverter;
+    private final EstablishmentCreateConverter establishmentCreateConverter;
+    private final EstablishmentUpdateConverter establishmentUpdateConverter;
 
     public EstablishmentServiceImpl(
             IndexEstablishmentUseCase indexEstablishmentUseCase,
@@ -35,8 +35,8 @@ public class EstablishmentServiceImpl implements EstablishmentService {
             UpdateEstablishmentUseCase updateEstablishmentUseCase,
             DeleteEstablishmentUseCase deleteEstablishmentUseCase,
             EstablishmentJsonConverter establishmentJsonConverter,
-            CreateEstablishmentConverter  createEstablishmentConverter,
-            UpdateEstablishmentConverter updateEstablishmentConverter
+            EstablishmentCreateConverter establishmentCreateConverter,
+            EstablishmentUpdateConverter establishmentUpdateConverter
     ) {
         this.indexEstablishmentUseCase = indexEstablishmentUseCase;
         this.getEstablishmentUseCase = getEstablishmentUseCase;
@@ -45,8 +45,8 @@ public class EstablishmentServiceImpl implements EstablishmentService {
         this.deleteEstablishmentUseCase = deleteEstablishmentUseCase;
 
         this.establishmentJsonConverter = establishmentJsonConverter;
-        this.createEstablishmentConverter = createEstablishmentConverter;
-        this.updateEstablishmentConverter = updateEstablishmentConverter;
+        this.establishmentCreateConverter = establishmentCreateConverter;
+        this.establishmentUpdateConverter = establishmentUpdateConverter;
     }
 
     @Override
@@ -61,12 +61,12 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 
     @Override
     public Long create(CreateEstablishmentDTO createEstablishmentDTO) {
-        return this.createEstablishmentUseCase.execute(this.createEstablishmentConverter.fromDto(createEstablishmentDTO));
+        return this.createEstablishmentUseCase.execute(this.establishmentCreateConverter.fromDto(createEstablishmentDTO));
     }
 
     @Override
     public void update(UpdateEstablishmentDTO updateEstablishmentDTO) {
-        this.updateEstablishmentUseCase.execute(this.updateEstablishmentConverter.fromDto(updateEstablishmentDTO));
+        this.updateEstablishmentUseCase.execute(this.establishmentUpdateConverter.fromDto(updateEstablishmentDTO));
     }
 
     @Override

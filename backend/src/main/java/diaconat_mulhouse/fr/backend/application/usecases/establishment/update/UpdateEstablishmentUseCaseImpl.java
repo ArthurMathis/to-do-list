@@ -1,7 +1,7 @@
 package diaconat_mulhouse.fr.backend.application.usecases.establishment.update;
 
-import diaconat_mulhouse.fr.backend.core.gateways.establishment.update.UpdateEstablishmentGateway;
-import diaconat_mulhouse.fr.backend.domain.entities.Establishment.Establishment;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.establishment.update.UpdateEstablishmentGateway;
+import diaconat_mulhouse.fr.backend.domain.entities.establishment.Establishment;
 
 public class UpdateEstablishmentUseCaseImpl implements UpdateEstablishmentUseCase {
 

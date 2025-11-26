@@ -1,6 +1,6 @@
 package diaconat_mulhouse.fr.backend.domain.repositories;
 
-import diaconat_mulhouse.fr.backend.domain.entities.User.UserJPA;
+import diaconat_mulhouse.fr.backend.domain.entities.user.UserJPA;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

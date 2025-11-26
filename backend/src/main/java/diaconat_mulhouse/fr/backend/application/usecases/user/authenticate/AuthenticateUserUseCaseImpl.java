@@ -1,27 +1,28 @@
 package diaconat_mulhouse.fr.backend.application.usecases.user.authenticate;
 
-import diaconat_mulhouse.fr.backend.application.DTOs.user.AuthToken;
-import diaconat_mulhouse.fr.backend.application.DTOs.user.LoginUserDTO;
-import diaconat_mulhouse.fr.backend.application.exception.authentification.InvalidAuthentificationException;
-import diaconat_mulhouse.fr.backend.core.gateways.user.authenticate.AuthenticateUserGateway;
-import diaconat_mulhouse.fr.backend.core.security.Jwt.JwtProvider;
-import diaconat_mulhouse.fr.backend.domain.entities.User.User;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.authentification.AuthToken;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.authentification.TokenUserData;
+import diaconat_mulhouse.fr.backend.presentation.DTOs.user.LoginUserDTO;
+import diaconat_mulhouse.fr.backend.application.exceptions.authentification.InvalidAuthentificationException;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.user.authenticate.AuthenticateUserGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.security.Jwt.JwtProvider;
+import diaconat_mulhouse.fr.backend.domain.entities.user.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
 public class AuthenticateUserUseCaseImpl implements AuthenticateUserUseCase {
 
-    private static final String errorMessage = "Authentication failed. Please check your login credentials. ";
+    private static final String errorMessage = "Authentication failed. Please check your login credentials.";
 
     private final AuthenticateUserGateway authenticateUserGateway;
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
 
     public AuthenticateUserUseCaseImpl(
-            AuthenticateUserGateway authenticateUserGateway,
-            PasswordEncoder passwordEncoder,
-            JwtProvider jwtProvider
+        AuthenticateUserGateway authenticateUserGateway,
+        PasswordEncoder passwordEncoder,
+        JwtProvider jwtProvider
     ) {
         this.authenticateUserGateway = authenticateUserGateway;
         this.passwordEncoder = passwordEncoder;
@@ -33,10 +34,14 @@ public class AuthenticateUserUseCaseImpl implements AuthenticateUserUseCase {
         User user = Optional.ofNullable(
             this.authenticateUserGateway.getByEmail(loginUserDTO.email())
         ).orElseThrow(() -> new InvalidAuthentificationException(errorMessage));
-
         if(!this.passwordEncoder.matches(loginUserDTO.password(), user.getPassword())) {
             throw new InvalidAuthentificationException(errorMessage);
         }
-        return this.jwtProvider.generateToken(loginUserDTO.email());
+
+        TokenUserData tokenUserData = TokenUserData.builder()
+                .id(user.getId())
+                .roleId(user.getRoleId())
+                .build();
+        return this.jwtProvider.generateToken(tokenUserData);
     }
 }

@@ -34,24 +34,24 @@ import diaconat_mulhouse.fr.backend.application.usecases.user.index.IndexUserUse
 import diaconat_mulhouse.fr.backend.application.usecases.user.index.IndexUserUseCaseImpl;
 import diaconat_mulhouse.fr.backend.application.usecases.user.update.UpdateUserUseCase;
 import diaconat_mulhouse.fr.backend.application.usecases.user.update.UpdateUserUseCaseImpl;
-import diaconat_mulhouse.fr.backend.core.gateways.establishment.create.CreateEstablishmentGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.establishment.delete.DeleteEstablishmentGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.establishment.get.GetEstablishmentGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.establishment.index.IndexEstablishmentGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.establishment.update.UpdateEstablishmentGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.log.index.IndexLogGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.logType.create.CreateLogTypeGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.logType.delete.DeleteLogTypeGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.logType.get.GetLogTypeGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.logType.index.IndexLogTypeGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.logType.update.UpdateLogTypeGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.user.authenticate.AuthenticateUserGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.user.create.CreateUserGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.user.delete.DeleteUserGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.user.get.GetUserGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.user.index.IndexUserGateway;
-import diaconat_mulhouse.fr.backend.core.gateways.user.update.UpdateUserGateway;
-import diaconat_mulhouse.fr.backend.core.security.Jwt.JwtProvider;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.establishment.create.CreateEstablishmentGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.establishment.delete.DeleteEstablishmentGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.establishment.get.GetEstablishmentGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.establishment.index.IndexEstablishmentGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.establishment.update.UpdateEstablishmentGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.index.IndexLogGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.logType.create.CreateLogTypeGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.logType.delete.DeleteLogTypeGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.logType.get.GetLogTypeGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.logType.index.IndexLogTypeGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.logType.update.UpdateLogTypeGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.user.authenticate.AuthenticateUserGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.user.create.CreateUserGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.user.delete.DeleteUserGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.user.get.GetUserGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.user.index.IndexUserGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.user.update.UpdateUserGateway;
+import diaconat_mulhouse.fr.backend.infrastructure.security.Jwt.JwtProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -129,8 +129,8 @@ public class UseCaseConfig {
     }
 
     @Bean
-    public CreateUserUseCase createUserUseCase(CreateUserGateway createUserGateway) {
-        return new CreateUserUseCaseImpl(createUserGateway);
+    public CreateUserUseCase createUserUseCase(CreateUserGateway createUserGateway, PasswordEncoder passwordEncoder) {
+        return new CreateUserUseCaseImpl(createUserGateway, passwordEncoder);
     }
 
     @Bean

@@ -1,7 +1,7 @@
 package diaconat_mulhouse.fr.backend.application.usecases.log.index;
 
-import diaconat_mulhouse.fr.backend.core.gateways.log.index.IndexLogGateway;
-import diaconat_mulhouse.fr.backend.domain.entities.Log.Log;
+import diaconat_mulhouse.fr.backend.infrastructure.gateways.index.IndexLogGateway;
+import diaconat_mulhouse.fr.backend.domain.entities.log.Log;
 
 import java.util.List;
 
