@@ -5,8 +5,7 @@ import { Login } from "./presentation/pages/login/login";
 @Component({
   selector: 'app-root',
   imports: [
-    RouterOutlet,
-    Login
+    RouterOutlet
 ],
   templateUrl: './app.html',
   styleUrl: './app.css'
