@@ -16,4 +16,5 @@ public interface UserService extends CrudService<Long, UserJsonDTO, CreateUserDT
      * @return The authentification token
      */
     public AuthToken authenticate(LoginUserDTO loginUserDTO);
+
 }

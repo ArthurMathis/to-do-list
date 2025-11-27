@@ -1,1 +1,26 @@
 <app-nav-bar></app-nav-bar>
+
+@if(establishments().length > 0) {
+    <div class="hero bg-base-200 flex flex-col justify-start min-w-screen min-h-screen p-12">
+    <div class="hero-content w-full">
+        <div class="flex flex-col content-start gap-8 w-full">
+            <h1 class="text-4xl font-bold">
+                Vos établissements
+            </h1>
+
+            <article class="grid gap-4 grid-cols-[repeat(auto-fit,minmax(360px,1fr))]">
+                @for(est of establishments(); track est.id) {
+                    <app-establishment 
+                        [establishment]="est"
+                        (clicked)="navigate($event)"
+                    ></app-establishment>
+                }
+            </article>
+        </div>
+    </div>
+    </div>
+} @else {
+    <p class="text-center mt-4">
+        Aucun établissement n'est mlié à votre profil.
+    </p>
+}

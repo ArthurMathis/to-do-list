@@ -1,9 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { BASE_API_URL } from "../../core/api.utils";
-import { AuthRequest } from "../interfaces/auth.request";
+import { AuthRequest, AuthResponse } from "../interfaces/auth.interface";
 import { BehaviorSubject, Observable, tap } from "rxjs";
-import { AuthResponse } from "../interfaces/auth.response";
 
 @Injectable({
     providedIn: 'root'
@@ -41,7 +40,7 @@ class AuthService {
 
     // * GETTERS * //
 
-    private getToken(): string|null {
+    public getToken(): string|null {
         return localStorage.getItem(this.tokenAccess);
     }
 

@@ -17,6 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Class that filters API requests based on their authentication token
@@ -46,7 +47,7 @@ public class JwtFilter extends OncePerRequestFilter {
         try {
             final TokenUserData tokenUserData = jwtProvider.extract(token);
             if (tokenUserData != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UsernamePasswordAuthenticationToken authToken =  new UsernamePasswordAuthenticationToken(tokenUserData.id(), null, null);
+                UsernamePasswordAuthenticationToken authToken =  new UsernamePasswordAuthenticationToken(tokenUserData, null, List.of());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }

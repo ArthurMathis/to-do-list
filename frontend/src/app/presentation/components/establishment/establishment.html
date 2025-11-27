@@ -1,1 +1,26 @@
-<p>establishment works!</p>
+<div class="card bg-base-100 w-full shadow-sm">
+  <figure>
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+      alt="Shoes" />
+  </figure>
+
+  <div class="card-body">
+    <h2 class="card-title">
+      {{ establishment().name }}
+    </h2>
+
+    <p class="text-sm">
+      {{ establishment().city }} - {{ establishment().postCode }}
+    </p>
+
+    <div class="card-actions justify-end">
+      <button 
+        class="btn btn-primary"
+        (click)="emit()"
+      >
+        Continuer
+      </button>
+    </div>
+  </div>
+</div>

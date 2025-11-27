@@ -40,10 +40,10 @@ public class UserJPA {
     @JoinColumn(name = "role_id")
     private RoleJPA role;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private List<EstablishmentJPA> establishments = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private List<TaskJPA> tasks = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

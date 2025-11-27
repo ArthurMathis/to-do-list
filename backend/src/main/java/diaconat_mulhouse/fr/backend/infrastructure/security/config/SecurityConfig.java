@@ -25,7 +25,8 @@ public class SecurityConfig {
 
     private final static List<String> urls = List.of("http://localhost:4200");
     private final static List<String> methods  = List.of("GET", "POST", "PUT", "DELETE");
-    private final static List<String> headers  = List.of("*");
+    private final static List<String> allowedHeaders = List.of("*");
+    private final static List<String> exposedHeaders = List.of("*");
 
     private final JwtFilter jwtFilter;
 
@@ -43,7 +44,8 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(SecurityConfig.urls);
         configuration.setAllowedMethods(SecurityConfig.methods);
-        configuration.setAllowedHeaders(SecurityConfig.headers);
+        configuration.setAllowedHeaders(SecurityConfig.allowedHeaders);
+        configuration.setExposedHeaders(SecurityConfig.exposedHeaders);
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

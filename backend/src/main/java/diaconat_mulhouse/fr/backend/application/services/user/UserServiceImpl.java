@@ -2,11 +2,6 @@ package diaconat_mulhouse.fr.backend.application.services.user;
 
 import diaconat_mulhouse.fr.backend.presentation.DTOs.authentification.AuthToken;
 import diaconat_mulhouse.fr.backend.application.usecases.user.authenticate.AuthenticateUserUseCase;
-import diaconat_mulhouse.fr.backend.application.usecases.user.create.CreateUserUseCase;
-import diaconat_mulhouse.fr.backend.application.usecases.user.delete.DeleteUserUseCase;
-import diaconat_mulhouse.fr.backend.application.usecases.user.get.GetUserUseCase;
-import diaconat_mulhouse.fr.backend.application.usecases.user.index.IndexUserUseCase;
-import diaconat_mulhouse.fr.backend.application.usecases.user.update.UpdateUserUseCase;
 import diaconat_mulhouse.fr.backend.application.converters.user.create.UserCreateConverter;
 import diaconat_mulhouse.fr.backend.application.converters.user.json.UserJsonConverter;
 import diaconat_mulhouse.fr.backend.application.converters.user.update.UserUpdateConverter;
@@ -23,11 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final IndexUserUseCase indexUserUseCase;
-    private final GetUserUseCase getUserUseCase;
-    private final CreateUserUseCase createUserUseCase;
-    private final UpdateUserUseCase updateUserUseCase;
-    private final DeleteUserUseCase deleteUserUseCase;
     private final AuthenticateUserUseCase authenticateUserUseCase;
 
     private final UserJsonConverter userJsonConverter;
@@ -36,27 +26,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserJsonDTO> index() {
-        return this.indexUserUseCase.execute(null).stream().map(this.userJsonConverter::toDto).toList();
+        // return this.indexUserUseCase.execute(null).stream().map(this.userJsonConverter::toDto).toList();
+        return List.of();
     }
 
     @Override
     public UserJsonDTO get(Long aLong) {
-        return this.userJsonConverter.toDto(this.getUserUseCase.execute(aLong));
+        // return this.userJsonConverter.toDto(this.getUserUseCase.execute(aLong));
+        return null;
     }
 
     @Override
     public Long create(CreateUserDTO createUserDTO) {
-        return this.createUserUseCase.execute(this.userCreateConverter.fromDto(createUserDTO));
+        // return this.createUserUseCase.execute(this.userCreateConverter.fromDto(createUserDTO));
+        return 0L;
     }
 
     @Override
     public void update(UpdateUserDTO updateUserDTO) {
-        this.updateUserUseCase.execute(this.userUpdateConverter.fromDto(updateUserDTO));
+        // this.updateUserUseCase.execute(this.userUpdateConverter.fromDto(updateUserDTO));
     }
 
     @Override
     public void delete(Long aLong) {
-        this.deleteUserUseCase.execute(aLong);
+        // this.deleteUserUseCase.execute(aLong);
     }
 
     @Override
