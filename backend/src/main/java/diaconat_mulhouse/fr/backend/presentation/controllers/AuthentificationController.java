@@ -1,8 +1,8 @@
 package diaconat_mulhouse.fr.backend.presentation.controllers;
 
+import diaconat_mulhouse.fr.backend.application.services.UserService;
 import diaconat_mulhouse.fr.backend.presentation.DTOs.authentification.AuthToken;
 import diaconat_mulhouse.fr.backend.presentation.DTOs.user.LoginUserDTO;
-import diaconat_mulhouse.fr.backend.application.services.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

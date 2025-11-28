@@ -1,5 +1,7 @@
 package diaconat_mulhouse.fr.backend.application.usecases;
 
+import java.nio.file.AccessDeniedException;
+
 /**
  * Interface that represents a UseCase
  *
