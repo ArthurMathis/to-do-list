@@ -11,7 +11,6 @@ class AuthGuard  {
     private authService = inject(AuthService);
 
     private access(): boolean {
-        console.log("Guard: token ?", this.authService.hasToken());
         if(!this.authService.hasToken()) {
             this.router.navigate([ '/login' ]);
             return false;
